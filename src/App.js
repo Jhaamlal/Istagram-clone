@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      istagram added new code
+      istagram adeded dd n ew code
       </header>
     </div>
   );
