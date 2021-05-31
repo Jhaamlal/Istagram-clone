@@ -1,0 +1,17 @@
+.post_image {
+    width: 100%;
+    object-fit: contain;
+}
+
+.post_text {
+    font-weight: normal;
+}
+
+.post_header {
+    display: flex;
+    align-items: center;
+}
+
+.post_avatar {
+    margin-right: 1em;
+}
