@@ -16,9 +16,9 @@ function Post() {
         </div>
 
 
-            <img className="post_image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="" srcset="" />
+            <img className="post_image" src="https://www.pngjoy.com/pngm/826/9766605_react-logo-react-js-logo-svg-transparent-png.png" alt="" srcset="" />
             {/*  */}
-            <h4 className='post_text'> <strong>Username</strong> :caption</h4>
+            <h4 className='post_text'> <strong>Username :</strong> caption</h4>
         </div>
     )
 }
