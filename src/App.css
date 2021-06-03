@@ -13,3 +13,8 @@
     border-bottom: 1px solid lightgray;
     padding: 20px;
 }
+
+.input_all {
+    display: flex !important;
+    flex-direction: column !important;
+}

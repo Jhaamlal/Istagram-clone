@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import './Post.css'
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 
 function Post({username,caption,imageUrl}) {
