@@ -1,7 +1,23 @@
 import './App.css';
 import Post from'./Post'
+import React,{useEffect, useState} from 'react'
+import db from './firebase'
 
 function App() {
+  const [posts, setposts] = useState([])
+
+  // useEfect
+  // This is Important in the sense that it has been feching data from database with id of element
+  useEffect(() => {
+    db.collection('posts').onSnapshot(snapshot =>{
+      setposts(snapshot.docs.map(doc=>({
+        post:doc.data(),
+        id:doc.id
+      
+      })))
+    })
+    
+  }, [])
   return (
     <div className="App">
       
@@ -14,8 +30,12 @@ function App() {
           </div>
         </div>
 
-      <Post />
-     
+      {
+        posts.map(({id,post})=>(
+          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+        ))
+      }
+      
     </div>
   );
 }
