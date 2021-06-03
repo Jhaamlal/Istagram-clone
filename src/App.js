@@ -1,7 +1,7 @@
 import './App.css';
 import Post from'./Post'
 import React,{useEffect, useState} from 'react'
-import db from './firebase'
+import {db,auth} from './firebase'
 import {Button, Input, makeStyles, Modal} from '@material-ui/core';
 
 
@@ -35,6 +35,7 @@ function App() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const [user,setUser]=useState(null)
 
   // useEfect
   // This is Important in the sense that it has been feching data from database with id of element
@@ -48,7 +49,39 @@ function App() {
     })
   }, [])
 
- 
+//  This down code wil keep you log in even after refresh and rether then save localStorage specially onAuthStateChanged
+  useEffect(()=>{
+      const unsubscribe =auth.onAuthStateChanged((authUser)=>{
+        if(authUser){
+            setUser(authUser)
+
+            if(authUser.displayName){
+              // If user is already present then make sure nothing happen
+            }else{
+              return authUser.updateProfile({
+                displayName:username
+                // If user is not present then make new Id
+              })
+            }
+        }else{
+            setUser(null)
+        }
+      })
+      return ()=>{
+        unsubscribe()
+      }
+  },[user,username])
+
+  const signUp=(event)=>{
+    event.preventDefault();
+      auth.createUserWithEmailAndPassword(email,password)
+      .then((authUser)=>{
+        return authUser.user.displayName({
+          displayName:username
+        })
+      })
+      .catch((err) =>alert(err.message))
+  }
 
   return (
     <div className="App">
@@ -93,6 +126,11 @@ function App() {
                 value={password}
                 onChange={e=>setPassword(e.target.value)}
             />
+          {user ?(
+            <Button onClick={()=>auth.signOut()}>Logout</Button>
+          ):
+            <Button onClick={signUp} type="submit">Sign UP</Button>
+        }
             </div>
           </center>
         </form>
