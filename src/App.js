@@ -3,6 +3,7 @@ import Post from'./Post'
 import React,{useEffect, useState} from 'react'
 import {db,auth} from './firebase'
 import {Button, Input, makeStyles, Modal} from '@material-ui/core';
+import ImageUplode from './ImageUplode';
 
 
 function getModalStyle() {
@@ -38,10 +39,13 @@ function App() {
   const [email, setEmail] = useState('')
   const [user,setUser]=useState(null)
 
+
+
+
   // useEfect
   // This is Important in the sense that it has been feching data from database with id of element
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot =>{
+    db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
       setposts(snapshot.docs.map(doc=>({
         post:doc.data(),
         id:doc.id
@@ -55,12 +59,13 @@ function App() {
       const unsubscribe =auth.onAuthStateChanged((authUser)=>{
         if(authUser){
             setUser(authUser)
-
             if(authUser.displayName){
               // If user is already present then make sure nothing happen
+
             }else{
               return authUser.updateProfile({
-                displayName:username
+                 displayName:username
+
                 // If user is not present then make new Id
               })
             }
@@ -72,6 +77,7 @@ function App() {
         unsubscribe()
       }
   },[user,username])
+
 
   const signUp=(event)=>{
     event.preventDefault();
@@ -87,18 +93,25 @@ function App() {
 
   const signIn=(event)=>{
     event.preventDefault()
-    auth.signInWithEmailAndPassword(email,password).catch(err=>alert(err.message))
+    auth.signInWithEmailAndPassword(email,password)
+    .catch(err=>alert(err.message))
     setopenSignIn(false)
   }
 
   return (
     <div className="App">
 
+    {/*   This has created propblemto me that, User?-----use to take that is that when it is there ((optinal))  */}
+    { user?.displayName ? (
+      <ImageUplode username={user.displayName}/>
+    ):(<h3>Sorry Darling ,Sorry Darling ,go for login Darling</h3>)
+    }
+
+
       {/* Modal */}
       <Modal
         open={open}
         onClose={()=>setOpen(false)}
-       
       >
         {/* Modal Body */}
 
