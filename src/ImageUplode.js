@@ -2,6 +2,7 @@ import {Button} from '@material-ui/core'
 import React, {useState} from 'react'
 import {db,storage} from './firebase'
 import firebase from 'firebase'
+import './ImageUplode.css'
 
 
 function ImageUplode({username}) {
@@ -36,7 +37,7 @@ function ImageUplode({username}) {
             ()=>{
                 // Complete
                 storage
-                .ref("image")
+                .ref("image")     
                 .child(image.name)
                 .getDownloadURL()
                 .then(url =>{
@@ -55,12 +56,9 @@ function ImageUplode({username}) {
 
     }
     return (
-        <div>
-            {/* Procedure */}
-            {/* Caption */}
-            {/* File Picker */}
-            {/* Post Button */}
-        <progress value={progress} max="100" />
+        <div className="imageuplode">
+           
+        <progress value={progress} max="100" className="imageuplode_progress"/>
         <input type="text" placeholder="Enter a Caption ....." value={caption} onChange={event =>setcaption(event.target.value)}/>
         <input type="file" placeholder="Uplode Image" onChange={handleChange}/>
         <Button className="imageuplode_button" onClick={handleUplode}>Uplode</Button>

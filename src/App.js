@@ -4,6 +4,7 @@ import React,{useEffect, useState} from 'react'
 import {db,auth} from './firebase'
 import {Button, Input, makeStyles, Modal} from '@material-ui/core';
 import ImageUplode from './ImageUplode';
+import InstagramEmbed from 'react-instagram-embed';
 
 
 function getModalStyle() {
@@ -101,12 +102,7 @@ function App() {
   return (
     <div className="App">
 
-    {/*   This has created propblemto me that, User?-----use to take that is that when it is there ((optinal))  */}
-    { user?.displayName ? (
-      <ImageUplode username={user.displayName}/>
-    ):(<h3>Sorry Darling ,Sorry Darling ,go for login Darling</h3>)
-    }
-
+  
 
       {/* Modal */}
       <Modal
@@ -163,6 +159,7 @@ function App() {
       {/* Modal */}
 
       {/* Modle 2 */}
+      
 
       <Modal
         open={openSignIn}
@@ -220,24 +217,66 @@ function App() {
             width='150em'
             alt="Insta Logo" />
           </div>
+
+
+            {user ?(
+              <Button onClick={()=>auth.signOut()}>Logout</Button>
+            ):
+            <div className="app_loginContainer">
+              <Button onClick={()=>setopenSignIn(true)} >Sign in </Button>
+              <Button onClick={()=>setOpen(true)}>Sign UP</Button>
+              {/* onClick =>setOpen(true) */}
+
+            </div>
+          }
+          
         </div>
 
-        {user ?(
-            <Button onClick={()=>auth.signOut()}>Logout</Button>
-          ):
-          <div className="app_loginContainer">
-            <Button onClick={()=>setopenSignIn(true)} >Sign in </Button>
-            <Button onClick={()=>setOpen(true)}>Sign UP</Button>
-            {/* onClick =>setOpen(true) */}
+      <div className="app_posts">
 
-          </div>
-        }
+        <div className="app_postsLeft">
 
-      {
-        posts.map(({id,post})=>(
-          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
-        ))
-      }
+            {
+              posts.map(({id,post})=>(
+                
+                <Post key={id.toString()} postId={id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+              ))
+            }
+        </div>
+        
+        <div className="app_postsRight">
+        <InstagramEmbed
+            url='https://www.instagram.com/virat.kohli/'
+            clientAccessToken='123|456'
+            maxWidth={320}
+            hideCaption={false}
+            containerTagName='div'
+            protocol=''
+            injectScript
+            onLoading={() => {}}
+            onSuccess={() => {}}
+            onAfterRender={() => {}}
+            onFailure={() => {}}
+
+            />
+
+        </div>
+
+
+      </div>
+      
+
+  
+
+
+
+
+        {/*   This has created propblemto me that, User?-----use to take that is that when it is there ((optinal))  */}
+    { user?.displayName ? (
+      <ImageUplode username={user.displayName}/>
+    ):(<h3>Sorry Darling ,Sorry Darling ,go for login Darling</h3>)
+    }
+
       
     </div>
   );

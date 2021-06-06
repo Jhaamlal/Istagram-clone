@@ -7,14 +7,34 @@
     height: 100vh;
 }
 
-.app_headerImage {
+.app_posts {
+    padding: 20px;
+    display: flex;
+}
+
+.app_header {
     background-color: white;
     object-fit: contain;
     border-bottom: 1px solid lightgray;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.app_headerImage {
+    object-fit: contain;
 }
 
 .input_all {
     display: flex !important;
     flex-direction: column !important;
+}
+
+.app_postsLeft {}
+
+.app_postsRight {
+    margin-left: 20px;
 }

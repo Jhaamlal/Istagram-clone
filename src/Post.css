@@ -17,6 +17,10 @@
     padding: 20px;
 }
 
+.post_comments {
+    padding: 20px;
+}
+
 .post_header {
     display: flex;
     align-items: center;
@@ -25,4 +29,22 @@
 
 .post_avatar {
     margin-right: 1em;
+}
+
+.post_commentBox {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post_input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-top: 1px solid lightgrey;
+}
+
+.post_button {
+    flex: 0;
+    border-top: 1px solid lightgrey;
+    color: #6082a3;
 }
